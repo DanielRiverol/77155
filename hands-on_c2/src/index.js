@@ -6,8 +6,8 @@ import MongoStore from "connect-mongo";
 import mongoose from "mongoose";
 import userRoutes from "./routes/session.routes.js";
 import viewRoutes from "./routes/views.routes.js";
-// passport 
-import initializePassport from './config/passport.config.js'
+// passport
+import initializePassport from "./config/passport.config.js";
 import passport from "passport";
 
 //settings
@@ -46,9 +46,9 @@ app.use(
   })
 );
 // passport
-initializePassport()
-app.use(passport.initialize())
-app.use(passport.session())
+initializePassport();
+app.use(passport.initialize());
+// app.use(passport.session());
 //routes
 app.get("/", (req, res) => {
   res.render("home", { title: "HOME" });
