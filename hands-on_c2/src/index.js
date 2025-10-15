@@ -4,6 +4,7 @@ import { join, __dirname } from "./utils/index.js";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 import userRoutes from "./routes/session.routes.js";
 import viewRoutes from "./routes/views.routes.js";
 // passport
@@ -45,6 +46,7 @@ app.use(
     saveUninitialized: false,
   })
 );
+app.use(cookieParser());
 // passport
 initializePassport();
 app.use(passport.initialize());

@@ -2,7 +2,11 @@ import passport from "passport";
 import local from "passport-local";
 import userModel from "../models/users.model.js";
 import { createHash, isValidadPassword } from "../utils/index.js";
+import jwt, { ExtractJwt } from "passport-jwt";
 
+const JWTStrategy = jwt.Strategy,
+  ExtractJWT = jwt.ExtractJwt;
+const JWT_SECRET = "anitalavalatina";
 const LocalStrategy = local.Strategy;
 const initializePassport = () => {
   passport.use(
@@ -36,6 +40,24 @@ const initializePassport = () => {
   );
   //   login
 
+  // jwt strategy
+  passport.use(
+    "jwt",
+    new JWTStrategy(
+      {
+        jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
+        secretOrKey: JWT_SECRET,
+      },
+      async (jwt_payload, done) => {
+        try {
+          return done(null, jwt_payload);
+        } catch (error) {
+          return done(error);
+        }
+      }
+    )
+  );
+
   // aca ocurre magia
   passport.serializeUser((user, done) => {
     done(null, user._id);
@@ -45,5 +67,12 @@ const initializePassport = () => {
     done(null, user);
   });
 };
+const cookieExtractor = (req) => {
+  let token = null;
+  if (req && req.cookies) {
+    token = req.cookies["authCookie"];
+  }
 
-export default initializePassport
+  return token;
+};
+export default initializePassport;
