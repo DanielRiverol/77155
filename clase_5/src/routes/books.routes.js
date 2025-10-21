@@ -20,5 +20,42 @@ router.get("/", (req, res) => {
       .json({ message: "Error interno del servidor", error: error.message });
   }
 });
+const ID_REGEX = /^[0-9]{4,6}$/;
+
+// router.get("/:id", (req, res) => {
+//   const { id } = req.params;
+//   console.log(id);
+//   if (!ID_REGEX.test(id)) {
+//     return res.status(400).json({ error: "Formato de id invalido" });
+//   }
+//   const book = books.find((b) => b.id === id);
+//   // validar si no existe
+//   if (!book) return res.status(404).json({ error: "Libro no encontrado" });
+//   res.status(200).json({ message: `Libro con id: ${id}`, payload: book });
+// });
+// router.put("/:id", (req, res) => {
+//   const { id } = req.params;
+//   console.log(id);
+//   if (!ID_REGEX.test(id)) {
+//     return res.status(400).json({ error: "Formato de id invalido" });
+//   }
+//   const book = books.find((b) => b.id === id);
+//   // validar si no existe
+//   //   if (!book) return res.status(404).json({ error: "Libro no encontrado" });
+//   //   res.status(200).json({ message: `Libro con id: ${id}`, payload: book });
+// });
+// router.delete("/:id", (req, res) => {
+//   const { id } = req.params;
+//   console.log(id);
+//   if (!ID_REGEX.test(id)) {
+//     return res.status(400).json({ error: "Formato de id invalido" });
+//   }
+//   const book = books.find((b) => b.id === id);
+//   // validar si no existe
+//   //   if (!book) return res.status(404).json({ error: "Libro no encontrado" });
+//   //   res.status(200).json({ message: `Libro con id: ${id}`, payload: book });
+// });
+
+// PARAM
 
 export default router;
