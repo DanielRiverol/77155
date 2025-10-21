@@ -57,5 +57,37 @@ const ID_REGEX = /^[0-9]{4,6}$/;
 // });
 
 // PARAM
+router.param("id", (req, res, next, id) => {
+  console.log(id);
+  if (!ID_REGEX.test(id)) {
+    return res.status(400).json({ error: "Formato de id invalido" });
+  }
+  const book = books.find((b) => b.id === id);
+
+  if (!book) return res.status(404).json({ error: "Libro no encontrado" });
+  req.book = book;
+  next();
+});
+
+// rutas concatenadas
+router
+  .route("/:id")
+  .get((req, res) => {
+    res.status(200).json({ message: "Libro encontrado", payload: req.book });
+  })
+  .put((req, res) => {
+    const { title, author } = req.body;
+    // validamos recibir los datos
+
+    const bookIndex = books.findIndex((b) => b.id === req.book.id);
+
+    const updateBook = { ...req.book, title, author };
+    books[bookIndex] = updateBook;
+    res.status(200).json({ message: "Libro actualizado", payload: updateBook });
+  });
+// ESTO NO FUNCIONA EN EXPRESS 5
+// router.get('*' ,(req, res) => {
+//   res.status(404).send("Recurso no encontrado");
+// });
 
 export default router;
