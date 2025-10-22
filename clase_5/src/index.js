@@ -1,8 +1,11 @@
 import express from "express";
 import booksRoutes from "./routes/books.routes.js";
+import envs from "./config/envs.js";
+console.log(envs);
+
 //settings
 const app = express();
-app.set("PORT", 3000);
+app.set("PORT", envs.port);
 
 // middlewares
 app.use(express.json());
