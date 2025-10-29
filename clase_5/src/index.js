@@ -1,9 +1,9 @@
 import express from "express";
 import booksRoutes from "./routes/books.routes.js";
-import UserRouter from "./routes/users.routes.js";
+import userRouter from "./routes/user.router.js";
 import { connectDB } from "./config/db.js";
 import envs from "./config/envs.js";
- const userRouter = new UserRouter()
+// const userRouter = new UserRouter()
 
 //settings
 const app = express();
@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
   res.json({ title: "Home Page" });
 });
 app.use("/books", booksRoutes);
-app.use("/users", userRouter.getRouter());
+app.use("/users", userRouter);
 //listeners
 connectDB(envs.mongodb_url);
 app.listen(app.get("PORT"), () => {
