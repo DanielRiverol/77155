@@ -1,15 +1,38 @@
+import Business from "../dao/classes/business.dao.js";
+
+// instanciamos la clase
+const businessService = new Business();
+
 export const getBusiness = async (req, res) => {
-  res.status(200).json({ status: "success", message: "Get businnes" });
+  try {
+    const business = await businessService.getBusiness();
+    !business
+      ? res.status(404).json({ status: "not-found" })
+      : res.status(200).json({ status: "success", payload: business });
+    
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error.message });
+  }
 };
-export const getBusinesById = async (req, res) => {
-  const bid = req.params.bid;
-  res
-    .status(200)
-    .json({ status: "success", message: `Get business By ID: ${bid}` });
+export const getBusinessById = async (req, res) => {
+  const { bid } = req.params;
+  try {
+    const business = await businessService.getBusinessById(bid);
+    !business
+      ? res.status(404).json({ status: "not-found" })
+      : res.status(200).json({ status: "success", payload: business });
+    // res.status(200).json({ status: "success", payload: "getBusinessById" });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error.message });
+  }
 };
 export const createBusiness = async (req, res) => {
-  res.status(201).json({ status: "success", message: "Create Business" });
-};
-export const addProduct = async (req, res) => {
-  res.status(200).json({ status: "success", message: "addProduct" });
+  const business = req.body;
+  try {
+    const newBusiness = await businessService.createBusiness(business);
+    res.status(200).json({ status: "success", payload: newBusiness });
+    // res.status(201).json({ status: "success", payload: "createBusiness" });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error.message });
+  }
 };

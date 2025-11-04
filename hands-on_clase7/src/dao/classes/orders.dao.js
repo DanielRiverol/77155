@@ -10,9 +10,9 @@ export default class Order {
       return null;
     }
   };
-  getOrderById = async (id) => {
+  getOrderById = async (oid) => {
     try {
-      const Order = await OrderModel.findOne({ _id: id });
+      const Order = await OrderModel.findOne({ _id: oid });
       return Order;
     } catch (error) {
       console.log(error);
@@ -28,9 +28,9 @@ export default class Order {
       return null;
     }
   };
-  resolveOrder = async (id, Order) => {
+  resolveOrder = async (oid, Order) => {
     try {
-      const result = await OrderModel.updateOne({ _id: id }, { $set: Order });
+      const result = await OrderModel.updateOne({ _id: oid }, { $set: Order });
       return result;
     } catch (error) {
       console.log(error);
