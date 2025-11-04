@@ -10,9 +10,9 @@ export default class Business {
       return null;
     }
   };
-  getBusinessById = async (id) => {
+  getBusinessById = async (bid) => {
     try {
-      const Business = await BusinessModel.findOne({ _id: id });
+      const Business = await BusinessModel.findOne({ _id: bid });
       return Business;
     } catch (error) {
       console.log(error);
@@ -28,10 +28,10 @@ export default class Business {
       return null;
     }
   };
-  updateBusiness = async (id, Business) => {
+  updateBusiness = async (bid, Business) => {
     try {
       const result = await BusinessModel.updateOne(
-        { _id: id },
+        { _id: bid },
         { $set: Business }
       );
       return result;
