@@ -9,7 +9,6 @@ export const getBusiness = async (req, res) => {
     !business
       ? res.status(404).json({ status: "not-found" })
       : res.status(200).json({ status: "success", payload: business });
-    
   } catch (error) {
     return res.status(500).json({ status: "error", message: error.message });
   }
@@ -32,6 +31,21 @@ export const createBusiness = async (req, res) => {
     const newBusiness = await businessService.createBusiness(business);
     res.status(200).json({ status: "success", payload: newBusiness });
     // res.status(201).json({ status: "success", payload: "createBusiness" });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error.message });
+  }
+};
+
+export const addProduct = async (req, res) => {
+  const product = req.body;
+  const { bid } = req.params;
+  try {
+    const business = await businessService.getBusinessById(bid);
+    // actualizo el business
+    business.products.push(product);
+
+    await businessService.updateBusiness(business._id, business);
+    res.status(200).json({ status: "success", payload: business });
   } catch (error) {
     return res.status(500).json({ status: "error", message: error.message });
   }
