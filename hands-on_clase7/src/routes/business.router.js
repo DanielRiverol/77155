@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  getBusinesById,
+  getBusinessById,
   getBusiness,
   createBusiness,
   addProduct,
@@ -9,7 +9,7 @@ const router = Router();
 
 // routes
 router.get("/", getBusiness);
-router.get("/:bid", getBusinesById);
+router.get("/:bid", getBusinessById);
 router.post("/", createBusiness);
 router.post("/:bid/product", addProduct);
 
