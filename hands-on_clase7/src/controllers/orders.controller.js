@@ -1,7 +1,7 @@
 import Order from "../dao/classes/orders.dao.js";
 import User from "../dao/classes/users.dao.js";
 import Business from "../dao/classes/business.dao.js";
-
+import { v4 as uuid } from "uuid";
 const userService = new User();
 const businessService = new Business();
 const orderService = new Order();
@@ -37,7 +37,7 @@ export const createOrder = async (req, res) => {
       0
     );
     const order = {
-      number: new Date().toTimeString(),
+      number: uuid(),
       business,
       user,
       status: "pending",
